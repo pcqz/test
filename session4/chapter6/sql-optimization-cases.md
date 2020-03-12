@@ -1,5 +1,5 @@
 ## 6.2 SQL 调优案例
-第三部分第一章介绍了 SQL 调优原理，本节汇集了一些用户常见的 SQL 优化案例。
+本节主要汇集了一些用户常见的 SQL 优化案例，关于 SQL 调优原理的介绍见第三部分第一章，
 ### 案例1 Delete 涉及数据量过大导致 OOM
 ```
 MySQL [db_stat]> explain delete from t_stat where imp_date<='20200202';
