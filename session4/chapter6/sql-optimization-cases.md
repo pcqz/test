@@ -7,8 +7,8 @@ MySQL [db_stat]> explain delete from t_stat where imp_date<='20200202';
 | id                  | count        | task | operator info                                        |
 +---------------------+--------------+------+------------------------------------------------------+
 | TableReader_6       | 220895815.00 | root | data:Selection_5                                     |
-| └─Selection_5       | 220895815.00 | cop  | le(db_stat.t_stat.imp_date, "20200202")     |
-|   └─TableScan_4     | 220895815.00 | cop  | table:t_stat, range:[-inf,+inf], keep order:false |
+| └─Selection_5       | 220895815.00 | cop  | le(db_stat.t_stat.imp_date, "20200202")              |
+|   └─TableScan_4     | 220895815.00 | cop  | table:t_stat, range:[-inf,+inf], keep order:false    |
 +---------------------+--------------+------+------------------------------------------------------+
 3 rows in set (0.00 sec)
 MySQL [db_stat]> select count(*)  from t_stat where imp_date<='20200202';
