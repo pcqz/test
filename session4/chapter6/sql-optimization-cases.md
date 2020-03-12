@@ -125,11 +125,11 @@ MySQL [db_stat]> explain select * from table:t_like_list where person_id='153553
 
 ![case4_pic3.png](../../res/session4/chapter6/sql_optimization_case/case4_pic3.png)
 
-查看 TiKV 监控 Coprocessor Overview。
+查看 TiKV 监控 Coprocessor Overview
 
 ![case4_pic_coprosessor.png](../../res/session4/chapter6/sql_optimization_case/case4_pic_coprosessor.png)
 
-查看监控 Coprocessor CPU。
+查看监控 Coprocessor CPU
 
 ![case4_coprocessor2.png](../../res/session4/chapter6/sql_optimization_case/case4_coprocessor2.png)
 
@@ -163,7 +163,6 @@ select a.a_id, a.b_id,uqm.p_id from a join hsq on a.b_id=hsq.id join uqm on a.a_
 * SQL2
 ```
 select distinct g.abc, g.def, g.ghi, h.abcd, hi.jq   from ggg g left join ggg_host gh on g.id = gh.ggg_id left join host h on gh.a_id = h.id left join a_jq hi on h.id = hi.hid   where h.abcd is not null and h.abcd  <>  '' and hi.jq is not null and hi.jq  <>  '';
-
 ```
 
 ![case4_plan2.png](../../res/session4/chapter6/sql_optimization_case/case4_plan2.png)
@@ -207,7 +206,7 @@ more tidb-2019-10-14T16-40-51.728.log | grep '"/[1318/]"' |grep 411837294180565
 pd-ctl –u http://x.x.x.x:2379 operator add split-region 66625
 ```
 
-操作后查看 PD 日志。
+操作后查看 PD 日志
 
 ```
 [2019/10/16 18:22:56.223 +08:00] [INFO] [operator_controller.go:99] ["operator finish"] [region-id=30796] [operator="\"admin-split-region (kind:admin, region:66625(1668,3), createAt:2019-10-16 18:22:55.888064898 +0800 CST m=+110918.823762963, startAt:2019-10-16 18:22:55.888223469 +0800 CST m=+110918.823921524, currentStep:1, steps:[split region with policy SCAN]) finished\""]
@@ -216,7 +215,7 @@ pd-ctl –u http://x.x.x.x:2379 operator add split-region 66625
 日志显示 region 已经分裂完成，之后查看该 region 相关的 slow-query。
 
 ```
-more tikv.log.2019-10-16-06\:28\:13 |grep slow-query  | grep 66625 | more
+more tikv.log.2019-10-16-06\:28\:13 |grep slow-query  | grep 66625
 ```
 
 观察一段时间后确认 66625 不再是热点 region，继续处理其它热点 region。所有热点 region 处理完成后，监控 Query Summary - Duration 显著降低。
@@ -243,7 +242,7 @@ leader 迁走之后，原 TiKV 节点的 Duration 立刻下降，但是迁移到
 
 **案例总结**
 
-对于分布式数据库的读热点问题，有时难以通过优化 SQL 的方式解决，需要分析整个 TiDB 集群的监控和日志来定位原因。严重的读热点可能导致部分 TiKV 达到资源瓶颈，这种短板效应限制了整个集群性能的充分发挥，通过分裂 region 的方式可以将热点 region 分散到更多的 TiKV 节点上，让每个 TiKV 的负载尽可能达到均衡，缓解读热点对 SQL 查询性能的影响。关于热点问题的处理思路可以参考第四部分 7.2 节。
+对于分布式数据库的读热点问题，有时难以通过优化 SQL 的方式解决，需要分析整个 TiDB 集群的监控和日志来定位原因。严重的读热点可能导致部分 TiKV 达到资源瓶颈，这种短板效应限制了整个集群性能的充分发挥，通过分裂 region 的方式可以将热点 region 分散到更多的 TiKV 节点上，让每个 TiKV 的负载尽可能达到均衡，缓解读热点对 SQL 查询性能的影响。更多热点问题的处理思路可以参考第四部分 7.2 节。
 
 ### 案例5 SQL 执行计划不准
 
