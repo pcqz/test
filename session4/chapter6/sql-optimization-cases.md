@@ -222,7 +222,7 @@ more tikv.log.2019-10-16-06\:28\:13 |grep slow-query  | grep 66625
 
 ![case4_pic10.png](../../res/session4/chapter6/sql_optimization_case/case4_pic10.png)
 
-稳定保持一段时间后，19:35 仍然有较高的 Duration 出现。
+Duration 稳定了保持一段时间，18:55 之后仍然有较高的 Duration 出现。
 
 ![case4_pic11.png](../../res/session4/chapter6/sql_optimization_case/case4_pic11.png)
 
