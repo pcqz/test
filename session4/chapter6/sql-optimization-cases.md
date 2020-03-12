@@ -107,8 +107,8 @@ MySQL [db_stat]> explain select * from table:t_like_list where person_id='153553
 | id                | count | task | operator info                                                                                            |
 +-------------------+-------+------+----------------------------------------------------------------------------------------------------------+
 | IndexLookUp_10    | 0.00  | root |                                                                                                          |
-| ├─IndexScan_8     | 0.00  | cop  | table:t_like_list, index:person_id, range:["1535538061143263","1535538061143263"], keep order:false |
-| └─TableScan_9     | 0.00  | cop  | table:t_like_list, keep order:false                                                                 |
+| ├─IndexScan_8     | 0.00  | cop  | table:t_like_list, index:person_id, range:["1535538061143263","1535538061143263"], keep order:false      |
+| └─TableScan_9     | 0.00  | cop  | table:t_like_list, keep order:false                                                                      |
 +-------------------+-------+------+----------------------------------------------------------------------------------------------------------+
 3 rows in set (0.00 sec)
 ```
